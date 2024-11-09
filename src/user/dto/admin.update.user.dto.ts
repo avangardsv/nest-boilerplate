@@ -1,9 +1,15 @@
-import { IsEmail, IsString, Length, IsOptional } from 'class-validator';
+import {
+  IsEmail,
+  IsString,
+  Length,
+  IsOptional,
+  IsBoolean,
+} from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
 
 @Exclude()
-export class UpdateUserDto {
+export class AdminUpdateUserDto {
   @Expose()
   @IsOptional()
   @IsString()
@@ -19,4 +25,11 @@ export class UpdateUserDto {
     default: 'user@email.com',
   })
   email: string;
+  @Expose()
+  @IsOptional()
+  @IsBoolean()
+  @ApiPropertyOptional({
+    default: false,
+  })
+  isAdmin: boolean;
 }

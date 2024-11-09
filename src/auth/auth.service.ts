@@ -1,12 +1,18 @@
 import { PrismaService } from './../prisma/prisma.service';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { AuthSignUpDto } from './dto/auth.sign-up.dto';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import { UserService } from 'src/user/user.service';
 import { AuthSignInDto } from './dto/auth.sign-in.dto';
 import { JwtUserInfo } from 'src/common/types/jwt-user-info.type';
-// import { ConfigService } from 'src/config/config.service';
+import { hash } from 'bcrypt';
+import { ConfigService } from 'src/config/config.service';
 
 @Injectable()
 export class AuthService {
@@ -14,11 +20,12 @@ export class AuthService {
     private readonly prismaService: PrismaService,
     private readonly jwtService: JwtService,
     private readonly userService: UserService,
-    // configService: ConfigService
+    private readonly configService: ConfigService,
   ) {}
+
   generateJwtPair(user: User) {
-    const { id, name } = user;
-    const payload: JwtUserInfo = { id, name };
+    const { id, name, isAdmin } = user;
+    const payload: JwtUserInfo = { id, name, isAdmin };
     const accessTokenOptions: JwtSignOptions = { expiresIn: '8h' };
     const refreshTokenOptions: JwtSignOptions = { expiresIn: '12h' };
 
@@ -28,20 +35,32 @@ export class AuthService {
     };
   }
   async signUp(data: AuthSignUpDto) {
-    const user = await this.userService.create(data);
+    const passwordHash = await hash(
+      data.password,
+      this.configService.passwordSalt,
+    );
+
+    const user = await this.userService.create({
+      ...data,
+      password: passwordHash,
+    });
+
     return this.generateJwtPair(user);
-    // check if user existed
-    // create user
   }
+
   async signIn(data: AuthSignInDto) {
+    const { password } = data;
+    const hashedPassword = await hash(
+      password,
+      this.configService.passwordSalt,
+    );
+
     const user = await this.userService.getOneByEmail(data.email);
-    if (!user || data.password !== user.password)
+    if (!user || hashedPassword !== user.password)
       throw new UnauthorizedException('User does not exist');
 
     if (user.deletedAt) throw new UnauthorizedException('User does not exist');
 
     return this.generateJwtPair(user);
-    // check if user existed
-    // create user
   }
 }
