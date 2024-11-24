@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { ConfigService } from 'src/config/config.service';
+import { JwtUserInfo } from 'src/common/types/jwt-user-info.type';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
@@ -15,7 +16,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     });
   }
 
-  validate(payload: { name: string; id: string; isAdmin: boolean }) {
+  validate(payload: JwtUserInfo) {
     this.logger.debug(payload);
     return payload;
   }

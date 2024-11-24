@@ -6,9 +6,10 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
 // import { LoggerModule } from './logger/logger.module';
 import { ConfigModule } from './config/config.module';
+import { CompanyModule } from './company/company.module';
 
 @Module({
-  imports: [UserModule, AuthModule, PrismaModule, ConfigModule],
+  imports: [UserModule, AuthModule, PrismaModule, ConfigModule, CompanyModule],
   controllers: [],
   providers: [JwtStrategy],
 })
