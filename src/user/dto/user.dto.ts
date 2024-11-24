@@ -10,4 +10,6 @@ export class UserDto {
   email: string;
   @Expose()
   deletedAt: Date;
+  @Expose()
+  isAdmin: boolean;
 }

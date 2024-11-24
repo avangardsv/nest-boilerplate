@@ -12,6 +12,10 @@ export class ConfigService {
     return this.getEnvValue('JWT_SECRET');
   }
 
+  get passwordSalt() {
+    return this.getEnvValue('PASSWORD_SALT');
+  }
+
   private getEnvValue(value: string) {
     if (!(value in process.env)) {
       throw new Error(`undefined env value ${value}`);
