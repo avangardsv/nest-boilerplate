@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
+import { PrismaKnownErrorFilter } from './prisma/filters/prisma-known-error.filter';
 
 async function bootstrap() {
   const logger = new Logger('bootstrap');
@@ -23,7 +24,11 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  });
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -32,6 +37,7 @@ async function bootstrap() {
     }),
   );
 
+  app.useGlobalFilters(new PrismaKnownErrorFilter());
   await app.listen(3000);
   logger.log('App runs localhost http://localhost:3000');
   logger.log('Swagger runs localhost http://localhost:3000/api');
