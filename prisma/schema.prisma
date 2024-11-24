@@ -14,10 +14,63 @@ datasource db {
 }
 
 model User {
-  id      String        @id @default(uuid())
-  email   String   @unique
-  name    String?
-  password String
+  id            String    @id @unique @default(uuid()) @db.Uuid
+  email         String    @unique
+  name          String?
+  password      String
+  deletedAt     DateTime?
+  isAdmin       Boolean   @default(false)
+  companies     Company[] @relation("owner")
+  tasks         Task[]    @relation("assignee")
+  observedTasks Task[]    @relation("reporter")
+}
+
+model Company {
+  id        String    @id @unique @default(uuid()) @db.Uuid
+  name      String
+  owner     User?     @relation("owner", fields: [ownerId], references: [id])
+  ownerId   String?   @map("owner_id") @db.Uuid
   deletedAt DateTime?
-  isAdmin Boolean @default(false)
+  updatedAt DateTime?
+  createdAt DateTime? @default(now())
+  projects  Project[] @relation("company")
+}
+
+model Project {
+  id        String    @id @unique @default(uuid()) @db.Uuid
+  name      String
+  company   Company?  @relation("company", fields: [companyId], references: [id])
+  companyId String?   @map("company_id") @db.Uuid
+  deletedAt DateTime?
+  updatedAt DateTime?
+  createdAt DateTime? @default(now())
+}
+
+model Task {
+  id          String    @id @unique @default(uuid()) @db.Uuid
+  name        String
+  description String
+  status      Status    @relation("status", fields: [statudId], references: [id], onDelete: Restrict)
+  statudId    String    @map("status_id") @db.Uuid
+  assignee    User?     @relation("assignee", fields: [assigneeId], references: [id])
+  assigneeId  String?   @map("assignee_id") @db.Uuid
+  reporter    User      @relation("reporter", fields: [reporterId], references: [id])
+  reporterId  String    @map("reporter_id") @db.Uuid
+  priority    Priority  @relation("priority", fields: [priorityId], references: [id])
+  priorityId  String    @map("priority_id") @db.Uuid
+  deletedAt   DateTime?
+  updatedAt   DateTime?
+  createdAt   DateTime? @default(now())
+}
+
+model Status {
+  id    String @id @unique @default(uuid()) @db.Uuid
+  name  String
+  tasks Task[] @relation("status")
+}
+
+model Priority {
+  id    String @id @unique @default(uuid()) @db.Uuid
+  name  String
+  tasks Task[] @relation("priority")
 }

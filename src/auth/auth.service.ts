@@ -1,10 +1,5 @@
 import { PrismaService } from './../prisma/prisma.service';
-import {
-  Injectable,
-  InternalServerErrorException,
-  Logger,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { AuthSignUpDto } from './dto/auth.sign-up.dto';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import { User } from '@prisma/client';
@@ -57,9 +52,9 @@ export class AuthService {
 
     const user = await this.userService.getOneByEmail(data.email);
     if (!user || hashedPassword !== user.password)
-      throw new UnauthorizedException('User does not exist');
+      throw new NotFoundException('User does not exist');
 
-    if (user.deletedAt) throw new UnauthorizedException('User does not exist');
+    if (user.deletedAt) throw new NotFoundException('User does not exist');
 
     return this.generateJwtPair(user);
   }

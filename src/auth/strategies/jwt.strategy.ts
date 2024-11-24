@@ -5,6 +5,8 @@ import { ConfigService } from 'src/config/config.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
+  private logger = new Logger(JwtStrategy.name);
+
   constructor(configService: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -14,7 +16,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   validate(payload: { name: string; id: string; isAdmin: boolean }) {
-    Logger.debug(payload);
+    this.logger.debug(payload);
     return payload;
   }
 }
