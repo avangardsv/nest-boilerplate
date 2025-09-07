@@ -8,6 +8,10 @@ import {
 } from 'class-validator';
 
 export class AuthSignUpDto {
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  id?: string;
   @ApiProperty()
   @IsEmail()
   @IsNotEmpty()

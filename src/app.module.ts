@@ -7,11 +7,19 @@ import { UserModule } from './user/user.module';
 // import { LoggerModule } from './logger/logger.module';
 import { ConfigModule } from './config/config.module';
 import { CompanyModule } from './company/company.module';
-import { SeederModule } from './seeder/seeder.module';
-import { SeedModule } from './seed/seed.module';
+import { ProjectModule } from './project/project.module';
+import { TaskModule } from './task/task.module';
 
 @Module({
-  imports: [UserModule, AuthModule, PrismaModule, ConfigModule, CompanyModule, SeederModule, SeedModule],
+  imports: [
+    UserModule,
+    AuthModule,
+    PrismaModule,
+    ConfigModule,
+    CompanyModule,
+    ProjectModule,
+    TaskModule,
+  ],
   controllers: [],
   providers: [JwtStrategy],
 })
