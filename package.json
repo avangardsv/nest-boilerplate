@@ -20,7 +20,9 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "docker:up": "docker-compose -f docker-compose.yml --profile db up -d",
     "migrate": "npx prisma migrate dev",
-    "check": "yarn biome check --write \"src/**/*.ts\" \"test/**/*.ts\""
+    "check": "yarn biome check --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "seed": "db:reset && ts-node src/seeders/seed.ts",
+    "db:reset": "npx prisma migrate reset"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
