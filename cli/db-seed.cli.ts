@@ -1,33 +1,32 @@
 import { INestApplicationContext, Module } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { ADMIN_USER_ID } from 'src/common/constants/user.constants';
-import { CompanyService } from 'src/company/company.service';
-import { PrismaModule } from 'src/prisma/prisma.module';
-import { UserService } from 'src/user/user.service';
-import {
-	user1Data,
-	user2Data,
-	userData,
-} from 'src/common/constants/user.constants';
-import { ProjectService } from 'src/project/project.service';
+import { Priority, Status, User } from '@prisma/client';
 import {
 	adminCompanyData,
 	company1Data,
 	company2Data,
 	companyData,
 } from 'src/common/constants/company.constants';
-import { TaskService } from 'src/task/task.service';
 import { projectData } from 'src/common/constants/project.constants';
-import { Company, Priority, Status, User } from '@prisma/client';
-import { taskData } from 'src/common/constants/task.constants';
-import { StatusService } from 'src/status/status.service';
 import { high, low, medium } from 'src/common/constants/prority.constants';
-import { PriorityService } from 'src/priority/priority.service';
 import {
 	completed,
 	inProgress,
 	todo,
 } from 'src/common/constants/status.constants';
+import { taskData } from 'src/common/constants/task.constants';
+import {
+	user1Data,
+	user2Data,
+	userData,
+} from 'src/common/constants/user.constants';
+import { CompanyService } from 'src/company/company.service';
+import { PriorityService } from 'src/priority/priority.service';
+import { PrismaModule } from 'src/prisma/prisma.module';
+import { ProjectService } from 'src/project/project.service';
+import { StatusService } from 'src/status/status.service';
+import { TaskService } from 'src/task/task.service';
+import { UserService } from 'src/user/user.service';
 
 async function seedUsers(app: INestApplicationContext) {
 	const userService = app.get(UserService);

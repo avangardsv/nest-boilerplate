@@ -2,8 +2,8 @@ import { v4 as uuidv4 } from 'uuid';
 import {
 	ADMIN_USER_ID,
 	user1Data,
-	userData,
 	user2Data,
+	userData,
 } from './user.constants';
 
 export const adminCompanyData = {

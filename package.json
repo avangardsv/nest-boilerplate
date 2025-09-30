@@ -20,8 +20,8 @@
 		"migrate": "npx prisma migrate dev",
 		"biome:check": "biome check --reporter=summary src cli test",
 		"biome:fix": "biome check --write src cli test",
-		"biome:format": "biome format --write src cli test",
 		"biome:lint": "biome lint --reporter=summary src cli test",
+		"biome:all": "biome check --reporter=summary src cli test && biome lint --reporter=summary src cli test",
 		"seed": "db:reset && ts-node src/seeders/seed.ts",
 		"sys:seed": "node dist/cli/db-seed.cli.js",
 		"db:reset": "npx prisma migrate reset"
