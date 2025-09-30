@@ -4,7 +4,8 @@
 	"vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["src/**", "cli/**", "test/**"]
+		"includes": ["src/**", "cli/**", "test/**"],
+		"experimentalScannerIgnores": [".agents/**"]
 	},
 	"formatter": { "enabled": true, "indentStyle": "tab" },
 	"linter": {
