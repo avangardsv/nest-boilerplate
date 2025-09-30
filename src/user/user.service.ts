@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { AuthSignUpDto } from 'src/auth/dto/auth.sign-up.dto';
 import {
@@ -8,6 +8,7 @@ import {
 	ADMIN_USER_PASSWORD,
 } from 'src/common/constants/user.constants';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { ADMIN_USER_EMAIL, ADMIN_USER_ID, ADMIN_USER_NAME, ADMIN_USER_PASSWORD } from 'src/common/constants/user.constants';
 
 @Injectable()
 export class UserService implements OnModuleInit {
