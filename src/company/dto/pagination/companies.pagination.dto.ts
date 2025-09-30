@@ -4,7 +4,7 @@ import { CompanyDto } from '../company.dto';
 
 @Exclude()
 export class CompanyPaginationDto extends BasePaginationDto<CompanyDto> {
-  @Expose()
-  @Type(() => CompanyDto)
-  items: CompanyDto[];
+	@Expose()
+	@Type(() => CompanyDto)
+	items: CompanyDto[];
 }

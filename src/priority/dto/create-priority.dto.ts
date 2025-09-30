@@ -4,9 +4,9 @@ import { IsString, Length } from 'class-validator';
 
 @Exclude()
 export class CreatePriorityDto {
-  @Expose()
-  @Length(1, 64)
-  @IsString()
-  @ApiProperty({ default: 'High' })
-  name: string;
+	@Expose()
+	@Length(1, 64)
+	@IsString()
+	@ApiProperty({ default: 'High' })
+	name: string;
 }

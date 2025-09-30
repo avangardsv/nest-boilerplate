@@ -1,23 +1,23 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Strategy, ExtractJwt } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { ConfigService } from 'src/config/config.service';
+import { ExtractJwt, Strategy } from 'passport-jwt';
 import { JwtUserInfo } from 'src/common/types/jwt-user-info.type';
+import { ConfigService } from 'src/config/config.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
-  private logger = new Logger(JwtStrategy.name);
+	private logger = new Logger(JwtStrategy.name);
 
-  constructor(configService: ConfigService) {
-    super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: configService.jwtSecret,
-      ignoreExpiration: false,
-    });
-  }
+	constructor(configService: ConfigService) {
+		super({
+			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+			secretOrKey: configService.jwtSecret,
+			ignoreExpiration: false,
+		});
+	}
 
-  validate(payload: JwtUserInfo) {
-    this.logger.debug(payload);
-    return payload;
-  }
+	validate(payload: JwtUserInfo) {
+		this.logger.debug(payload);
+		return payload;
+	}
 }

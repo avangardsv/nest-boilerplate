@@ -2,24 +2,24 @@ import { Exclude, Expose } from 'class-transformer';
 
 @Exclude()
 export class PaginatioMetaData {
-  @Expose()
-  page: number;
+	@Expose()
+	page: number;
 
-  @Expose()
-  perPage: number;
+	@Expose()
+	perPage: number;
 
-  @Expose()
-  total: number;
+	@Expose()
+	total: number;
 
-  @Expose()
-  totalPages: number;
+	@Expose()
+	totalPages: number;
 }
 
 @Exclude()
 export class BasePaginationDto<T> {
-  @Expose()
-  items: T[];
+	@Expose()
+	items: T[];
 
-  @Expose()
-  meta: PaginatioMetaData;
+	@Expose()
+	meta: PaginatioMetaData;
 }

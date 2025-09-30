@@ -4,8 +4,7 @@ import { TaskDto } from '../task.dto';
 
 @Exclude()
 export class TasksPaginationDto extends BasePaginationDto<TaskDto> {
-  @Expose()
-  @Type(() => TaskDto)
-  items: TaskDto[];
+	@Expose()
+	@Type(() => TaskDto)
+	items: TaskDto[];
 }
-

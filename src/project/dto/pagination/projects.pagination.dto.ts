@@ -4,8 +4,7 @@ import { ProjectDto } from '../project.dto';
 
 @Exclude()
 export class ProjectsPaginationDto extends BasePaginationDto<ProjectDto> {
-  @Expose()
-  @Type(() => ProjectDto)
-  items: ProjectDto[];
+	@Expose()
+	@Type(() => ProjectDto)
+	items: ProjectDto[];
 }
-

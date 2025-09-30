@@ -11,15 +11,15 @@ import {
 	UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
-import { IApiRequest } from 'src/common/interfaces/app-request.interface';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { ProjectService } from './project.service';
 import { plainToInstance } from 'class-transformer';
-import { ProjectDto } from './dto/project.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { IApiRequest } from 'src/common/interfaces/app-request.interface';
 import { CreateProjectDto } from './dto/create-project.dto';
-import { UpdateProjectDto } from './dto/update-project.dto';
-import { ProjectsPaginationOptionsDto } from './dto/pagination/projects.pagination.options.dto';
 import { ProjectsPaginationDto } from './dto/pagination/projects.pagination.dto';
+import { ProjectsPaginationOptionsDto } from './dto/pagination/projects.pagination.options.dto';
+import { ProjectDto } from './dto/project.dto';
+import { UpdateProjectDto } from './dto/update-project.dto';
+import { ProjectService } from './project.service';
 
 @Controller('project')
 @ApiBearerAuth()
